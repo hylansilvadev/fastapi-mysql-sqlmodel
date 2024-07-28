@@ -1,27 +1,31 @@
-from typing import List
-from pydantic import Field
 from datetime import datetime
 from pydantic import BaseModel
-
-from .base_schema import BaseSchema
-from app.core.config import settings
+from uuid import UUID
 
 
-class User(BaseSchema):
+
+class User(BaseModel):
     nickname: str
     password: str
     age: int
 
 
-class CreateUser(BaseSchema): ...
+class CreateUser(User):
+    class Config:
+        orm_mode = True
 
 
-class UpdateUser(BaseSchema):
+class UpdateUser(BaseModel):
     nickname: str
     password: str
     age: int
-    updated_at = Field(default_factory=datetime.now(settings.TIMEZONE))
 
 
-class ListUsers(BaseModel):
-    users: List[User]
+class UserResponse(BaseModel):
+    id: UUID
+    nickname: str
+    password: str
+    age: int
+    last_login: datetime
+    created_at: datetime
+    updated_at: datetime | None

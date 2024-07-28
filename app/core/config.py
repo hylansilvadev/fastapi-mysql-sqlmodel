@@ -9,6 +9,7 @@ class Settings(BaseSettings):
         env_ignore_empty=True
     )
     
+    #DATABASE_CONNECTRION
     DATABASE_TYPE: str
     CONNECTOR: str
     USERNAME: str
@@ -16,6 +17,11 @@ class Settings(BaseSettings):
     PORT: int
     HOST: str
     DATABASE: str
+    
+    #SECURITY_API
+    SECRET_KEY: str   
+    ALGORITHM: str 
+    ACCESS_TOKEN_EXPIRE_MINUTES: int 
     
     @property
     def DATABASE_URL(self) -> str:

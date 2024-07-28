@@ -13,17 +13,17 @@ services:
     volumes:
       - mysql-data:/var/lib/mysql
 
-  web:
-    build: ./
-    command: sh -c "while !</dev/tcp/mysql/3306; do sleep 1; done; poetry run alembic upgrade head && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000"
-    volumes:
-      - ./app:/app
-    ports:
-      - "8000:8000"
-    depends_on:
-      - mysql
-    env_file:
-      - .env
+  # web:
+  #   build: ./
+  #   command: sh -c "while !</dev/tcp/mysql/3306; do sleep 1; done; poetry run alembic upgrade head && poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000"
+  #   volumes:
+  #     - ./app:/app
+  #   ports:
+  #     - "8000:8000"
+  #   depends_on:
+  #     - mysql
+  #   env_file:
+  #     - .env
 
 volumes:
   mysql-data:
