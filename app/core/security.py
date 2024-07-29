@@ -9,7 +9,7 @@ from passlib.context import CryptContext
 from http import HTTPStatus
 
 from app.core.config import settings
-from app.core.database import get_db
+from app.core.database import get_db 
 from app.models.user_model import UserModel as User
 
 SECRET_KEY = settings.SECRET_KEY
@@ -18,13 +18,13 @@ ACCESS_TOKEN_EXPIRE_MINUTES = settings.ACCESS_TOKEN_EXPIRE_MINUTES
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/security/token")
 
 class TokenData(BaseModel):
     username: str | None = None
 
 async def get_current_user(
-    session: AsyncSession = Depends(get_db),
+    session: AsyncSession = Depends(get_db ),
     token: str = Depends(oauth2_scheme),
 ):
     credentials_exception = HTTPException(
@@ -43,7 +43,7 @@ async def get_current_user(
         raise credentials_exception
 
     result = await session.execute(
-        select(User).where(User.email == token_data.username)
+        select(User).where(User.nickname == token_data.username)
     )
     user = result.scalars().first()
 

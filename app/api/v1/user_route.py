@@ -79,8 +79,8 @@ async def update_user(
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete_user(
-    user_id: int, 
+    id: str, 
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    await user_service.delete(db, user_id)
+    await user_service.delete(db, id)
