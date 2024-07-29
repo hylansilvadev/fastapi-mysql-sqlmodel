@@ -61,16 +61,16 @@ async def get_by_id(
     status_code=status.HTTP_200_OK,
 )
 async def update_user(
-    user_id: int, 
+    id: str, 
     user: UpdateUser, 
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
-    user_data = user.model_dump(exclude_unset=True)
+    user_data = user.model_dump(exclude_none=True)
     if "password" in user_data:
         user_data["hashed_password"] = get_password_hash(user_data.pop("password"))
-    return await user_service.update(db, user_id, user_data)
-
+    user_in_db = UserModel(**user_data)
+    return await user_service.update(db, id, user_in_db)
 
 @router.delete(
     "/{id}",
