@@ -10,9 +10,7 @@ class User(BaseModel):
     age: int
 
 
-class CreateUser(User):
-    class Config:
-        orm_mode = True
+class CreateUser(User): ...
 
 
 class UpdateUser(BaseModel):
@@ -24,7 +22,7 @@ class UpdateUser(BaseModel):
 class UserResponse(BaseModel):
     id: UUID
     nickname: str
-    password: str
+    hashed_password: str
     age: int
     last_login: datetime
     created_at: datetime

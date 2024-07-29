@@ -14,8 +14,8 @@ class CRUDService(Generic[T]):
         self.model = model
 
     async def create(self, db: AsyncSession, obj_in: T) -> T:
-        obj_in_data = obj_in.model_dump(exclude_none=True)
-        db_obj = self.model(**obj_in_data, hashed_password=obj_in_data["password"])
+        obj_in_data = obj_in.model_dump(exclude_unset=True)
+        db_obj = self.model(**obj_in_data)
         db.add(db_obj)
         await db.commit()
         await db.refresh(db_obj)
