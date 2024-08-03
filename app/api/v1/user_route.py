@@ -4,7 +4,7 @@ from sqlmodel.ext.asyncio.session import AsyncSession
 
 from app.core.database import get_db
 from app.service.crud_service import CRUDService
-from app.schemas.user_schemas import CreateUser, UpdateUser, UserResponse, User
+from app.schemas.user_schemas import CreateUser, UpdateUser, UserResponse, User, UserUnsignedView
 from app.models.user_model import UserModel
 from app.core.security import get_current_user, get_password_hash
 
@@ -32,7 +32,7 @@ async def post_user(
 
 @router.get(
     "/",
-    response_model=List[UserResponse],
+    response_model=List[UserUnsignedView],
     response_model_by_alias=False,
     status_code=status.HTTP_200_OK,
 )

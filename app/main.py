@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI) -> any:
 
 
 params = {
-    'title': 'FastAPI Test 26/07/2024',
+    'title': 'FastAPI-MYSQL',
     'docs_url': '/',
     'lifespan': lifespan
 }

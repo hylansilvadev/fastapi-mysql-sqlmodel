@@ -42,3 +42,10 @@ class UserResponse(BaseModel):
     last_login: datetime
     created_at: datetime
     updated_at: datetime | None
+
+
+class UserUnsignedView(BaseModel):
+    nickname: str | None = None
+    email: EmailStr | None = None
+    first_name: str | None = None
+    last_name: str | None = None
